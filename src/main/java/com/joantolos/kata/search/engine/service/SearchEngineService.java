@@ -8,8 +8,8 @@ public class SearchEngineService {
 
     private List<AppFile> files;
 
-    public SearchEngineService(String path) throws IllegalArgumentException {
-        this.files = new LoaderService(path).load();
+    public SearchEngineService(String path) throws IllegalArgumentException, FileLoadingException {
+        new LoaderService(path).load();
     }
 
 }

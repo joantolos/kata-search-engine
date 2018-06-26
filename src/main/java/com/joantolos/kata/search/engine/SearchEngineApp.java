@@ -14,7 +14,7 @@ public class SearchEngineApp {
 
         try {
             String folder = new ArgumentParser(args).getFolder();
-            searchEngineService = new SearchEngineService(folder);
+//            searchEngineService = new SearchEngineService(folder);
             console.prompt(folder);
             Scanner keyboard = new Scanner(System.in);
             String toSearch;
