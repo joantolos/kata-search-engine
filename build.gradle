@@ -35,18 +35,18 @@ allprojects {
 
         afterEvaluate {
             classDirectories = files(classDirectories.files.collect {
-                fileTree(dir: it,
-                        exclude: ['com/joantolos/kata/search/engine/SearchEngine*'])
+                fileTree(dir: it, exclude: ['com/joantolos/kata/search/engine/SearchEngineApp*'])
             })
         }
     }
 
     dependencies {
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
         testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
     }
 
     task fatJar(type: Jar) {
-        manifest { attributes'Main-Class': 'com.joantolos.kata.search.engine.SearchEngine' }
+        manifest { attributes'Main-Class': 'com.joantolos.kata.search.engine.SearchEngineApp' }
         baseName = project.name + '-all'
         from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
         with jar
