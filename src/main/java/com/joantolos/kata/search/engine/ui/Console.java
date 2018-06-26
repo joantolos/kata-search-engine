@@ -1,5 +1,7 @@
 package com.joantolos.kata.search.engine.ui;
 
+import com.joantolos.kata.search.engine.domain.SearchResult;
+
 public class Console {
 
     public Boolean prompt(String filesPath){
@@ -26,4 +28,8 @@ public class Console {
         return true;
     }
 
+    public Boolean printSearchResult(SearchResult search) {
+        System.out.println(search.getTerm());
+        return true;
+    }
 }

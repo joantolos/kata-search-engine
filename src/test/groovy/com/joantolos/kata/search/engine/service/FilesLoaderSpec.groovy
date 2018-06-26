@@ -1,6 +1,7 @@
 package com.joantolos.kata.search.engine.service
 
 import com.joantolos.kata.search.engine.domain.AppFile
+import com.joantolos.kata.search.engine.exception.FileLoadingException
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -16,6 +17,14 @@ class FilesLoaderSpec extends Specification {
                                 .toURI())
                         .getAbsolutePath()
                         .replace('/angularTutorialExtended.txt',''))
+    }
+
+    def 'Files loader should raise exception when bad path'(){
+        when:
+        new LoaderService('noPath').load()
+
+        then: 'a File Loading Exception is thrown'
+        thrown(FileLoadingException)
     }
 
     def 'Files loader should load 13 files from the test resources folder'(){
