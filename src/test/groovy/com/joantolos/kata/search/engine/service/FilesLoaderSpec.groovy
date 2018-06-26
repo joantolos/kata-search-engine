@@ -36,7 +36,7 @@ class FilesLoaderSpec extends Specification {
         appFiles.get(2).getName() == 'readability.txt'
     }
 
-    def '13 file content should be not null'(){
+    def 'The 13 file contents should be not null'(){
         given:
         List<AppFile> appFiles = loaderService.load()
 

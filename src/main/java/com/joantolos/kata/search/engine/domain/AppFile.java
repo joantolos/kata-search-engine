@@ -1,13 +1,11 @@
 package com.joantolos.kata.search.engine.domain;
 
-import java.io.File;
-
 public class AppFile {
 
     private String name;
-    private File content;
+    private String content;
 
-    public AppFile(String name, File content) {
+    public AppFile(String name, String content) {
         this.name = name;
         this.content = content;
     }
@@ -16,7 +14,7 @@ public class AppFile {
         return name;
     }
 
-    public File getContent() {
+    public String getContent() {
         return content;
     }
 }

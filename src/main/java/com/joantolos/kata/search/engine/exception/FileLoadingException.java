@@ -1,6 +1,4 @@
-package com.joantolos.kata.search.engine.service;
-
-import com.joantolos.kata.search.engine.exception.ErrorMessage;
+package com.joantolos.kata.search.engine.exception;
 
 public class FileLoadingException extends Throwable {
 

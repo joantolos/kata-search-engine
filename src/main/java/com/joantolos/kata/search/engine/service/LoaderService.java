@@ -1,11 +1,13 @@
 package com.joantolos.kata.search.engine.service;
 
 import com.joantolos.kata.search.engine.domain.AppFile;
+import com.joantolos.kata.search.engine.exception.FileLoadingException;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class LoaderService {
@@ -20,10 +22,20 @@ public class LoaderService {
         try {
             return Files.walk(Paths.get(this.path))
                     .filter(Files::isRegularFile)
-                    .map(currentPath -> new AppFile(currentPath.getFileName().toString(), currentPath.toFile()))
+                    .map(currentPath -> {
+                        try {
+                            return new AppFile(
+                                    currentPath.getFileName().toString(),
+                                    new String(Files.readAllBytes(currentPath)));
+                        } catch (IOException ignored) {
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new FileLoadingException();
         }
     }
+
 }
