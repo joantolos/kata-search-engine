@@ -15,6 +15,6 @@ public class SearchEngineService {
     }
 
     public SearchResult search(String toSearch) {
-        return new SearchResult(toSearch);
+        return new SearchResult(toSearch, files.size());
     }
 }

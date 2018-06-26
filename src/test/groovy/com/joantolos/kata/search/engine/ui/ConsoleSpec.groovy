@@ -22,6 +22,6 @@ class ConsoleSpec extends Specification {
 
     def 'User Interface should print search results'(){
         expect:
-        new Console().printSearchResult(new SearchResult("Looking for words"))
+        new Console().printSearchResult(new SearchResult("Looking for words", 10))
     }
 }

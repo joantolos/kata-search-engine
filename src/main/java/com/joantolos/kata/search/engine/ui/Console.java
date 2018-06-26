@@ -29,7 +29,11 @@ public class Console {
     }
 
     public Boolean printSearchResult(SearchResult search) {
-        System.out.println(search.getTerm());
-        return true;
+        return this.print(
+                "Search results for the term: " +
+                search.getTerm() +
+                " into " +
+                search.getTotalFiles() +
+                " files.");
     }
 }
