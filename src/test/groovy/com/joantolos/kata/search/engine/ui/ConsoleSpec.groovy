@@ -2,13 +2,30 @@ package com.joantolos.kata.search.engine.ui
 
 import com.joantolos.kata.search.engine.service.LoaderService
 import com.joantolos.kata.search.engine.service.SearchEngineService
+import spock.lang.Shared
 import spock.lang.Specification
 
 class ConsoleSpec extends Specification {
 
+    @Shared SearchEngineService searchEngineService
+
+    def setupSpec() {
+        searchEngineService = new SearchEngineService(new LoaderService(new File(
+                this.getClass()
+                        .getResource('/angularTutorialExtended.txt')
+                        .toURI())
+                .getAbsolutePath()
+                .replace('/angularTutorialExtended.txt',''), new Console()).load())
+    }
+
     def 'User Interface should print prompt'(){
         expect:
         new Console().prompt()
+    }
+
+    def 'User Interface should print the next search'(){
+        expect:
+        new Console().nextSearch()
     }
 
     def 'User Interface should print exit'(){
@@ -22,13 +39,6 @@ class ConsoleSpec extends Specification {
     }
 
     def 'User Interface should print search results'(){
-        SearchEngineService searchEngineService = new SearchEngineService(new LoaderService(new File(
-                this.getClass()
-                        .getResource('/angularTutorialExtended.txt')
-                        .toURI())
-                .getAbsolutePath()
-                .replace('/angularTutorialExtended.txt',''), new Console()).load())
-
         expect:
         new Console().printSearchResult(searchEngineService.search('is that the'))
     }

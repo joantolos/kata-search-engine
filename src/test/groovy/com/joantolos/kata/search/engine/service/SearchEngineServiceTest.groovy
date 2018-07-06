@@ -9,13 +9,12 @@ class SearchEngineServiceTest extends Specification {
     @Shared SearchEngineService searchEngineService
 
     def setupSpec() {
-        String path = new File(
+        searchEngineService = new SearchEngineService(new LoaderService(new File(
                 this.getClass()
                         .getResource('/angularTutorialExtended.txt')
                         .toURI())
                 .getAbsolutePath()
-                .replace('/angularTutorialExtended.txt','');
-        searchEngineService = new SearchEngineService(new LoaderService(path, new Console()).load())
+                .replace('/angularTutorialExtended.txt',''), new Console()).load())
     }
 
     def 'Search engine should search'(){
