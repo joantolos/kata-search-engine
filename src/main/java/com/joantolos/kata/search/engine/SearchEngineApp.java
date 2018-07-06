@@ -11,19 +11,22 @@ public class SearchEngineApp {
 
     public static void main(String[] args) {
         Console console = new Console();
-        SearchEngineService searchEngineService;
 
         try {
-            String folder = new ArgumentParser(args).getFolder();
-            LoaderService loaderService = new LoaderService(folder, console);
-            searchEngineService = new SearchEngineService(loaderService.load());
-            console.prompt(folder);
+            String path = new ArgumentParser(args).getFolder();
+            SearchEngineService searchEngineService =
+                    new SearchEngineService(
+                            new LoaderService(path, console)
+                                    .load());
+
+            console.prompt(path);
             Scanner keyboard = new Scanner(System.in);
             String toSearch;
             do {
                 console.print("\nsearch > ");
                 toSearch = keyboard.nextLine();
                 console.printSearchResult(searchEngineService.search(toSearch));
+                console.nextSearch(path);
             } while (!toSearch.equals(":quit"));
             console.exit();
         } catch (IllegalArgumentException e) {

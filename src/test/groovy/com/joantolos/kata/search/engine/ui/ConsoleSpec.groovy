@@ -1,6 +1,7 @@
 package com.joantolos.kata.search.engine.ui
 
-import com.joantolos.kata.search.engine.domain.SearchResult
+import com.joantolos.kata.search.engine.service.LoaderService
+import com.joantolos.kata.search.engine.service.SearchEngineService
 import spock.lang.Specification
 
 class ConsoleSpec extends Specification {
@@ -21,7 +22,14 @@ class ConsoleSpec extends Specification {
     }
 
     def 'User Interface should print search results'(){
+        SearchEngineService searchEngineService = new SearchEngineService(new LoaderService(new File(
+                this.getClass()
+                        .getResource('/angularTutorialExtended.txt')
+                        .toURI())
+                .getAbsolutePath()
+                .replace('/angularTutorialExtended.txt',''), new Console()).load())
+
         expect:
-        new Console().printSearchResult(new SearchResult("Looking for words", 10))
+        new Console().printSearchResult(searchEngineService.search('is that the'))
     }
 }

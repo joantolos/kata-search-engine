@@ -20,8 +20,6 @@ public class SearchEngineService {
 
     public SearchResult search(String toSearch) {
 
-        List<Term> terms = new ArrayList<>();
-
         for(AppFile appFile : files){
             String patternString =
                     "\\b(" +
@@ -42,11 +40,8 @@ public class SearchEngineService {
                     count.put(term, 1);
                 }
             }
-            System.out.println("File named: " + appFile.getName());
-            count.forEach((k, v) -> {
-                terms.add(new Term(k, v));
-                System.out.println("\tThe word '" + k + "' appears " + v + " times." );
-            });
+            List<Term> terms = new ArrayList<>();
+            count.forEach((k, v) -> terms.add(new Term(k, v)));
             appFile.setTerms(terms);
         }
 

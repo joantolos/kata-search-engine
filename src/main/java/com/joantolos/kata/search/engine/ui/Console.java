@@ -18,6 +18,11 @@ public class Console {
         return true;
     }
 
+    public Boolean nextSearch(String filesPath){
+        System.out.println("\n--\nReady for searching on the folder: \n" + filesPath);
+        return true;
+    }
+
     public Boolean print(String toPrint){
         System.out.println(toPrint);
         return true;
@@ -29,11 +34,17 @@ public class Console {
     }
 
     public Boolean printSearchResult(SearchResult search) {
-        return this.print(
-                "Search results for the term: " +
-                search.getTerm() +
-                " into " +
-                search.getTotalFiles() +
-                " files.");
+        this.print(
+            "Search results for the term '" +
+            search.getTerm() +
+            "' into " +
+            search.getTotalFiles() +
+            " files.");
+
+        search.getAppFiles().forEach(appFile -> {
+            this.print("\nThe file: '" + appFile.getName());
+            appFile.getTerms().forEach(term -> this.print("\tContains the word '" + term.getTerm() + "' " + term.getNumberOfTimes() + " times."));
+        });
+        return true;
     }
 }
