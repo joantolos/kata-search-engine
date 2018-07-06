@@ -1,30 +1,32 @@
 package com.joantolos.kata.search.engine.service
 
 import com.joantolos.kata.search.engine.domain.AppFile
-import com.joantolos.kata.search.engine.exception.FileLoadingException
+import com.joantolos.kata.search.engine.ui.Console
 import spock.lang.Shared
 import spock.lang.Specification
 
 class FilesLoaderSpec extends Specification {
 
     @Shared LoaderService loaderService
+    @Shared String fakeFilesPath = new File(
+            this.getClass()
+                    .getResource('/angularTutorialExtended.txt')
+                    .toURI())
+            .getAbsolutePath()
+            .replace('/angularTutorialExtended.txt','')
 
     def setupSpec() {
-        loaderService = new LoaderService(
-                new File(
-                        this.getClass()
-                                .getResource('/angularTutorialExtended.txt')
-                                .toURI())
-                        .getAbsolutePath()
-                        .replace('/angularTutorialExtended.txt',''))
+        loaderService = new LoaderService(fakeFilesPath, new Console())
     }
 
-    def 'Files loader should raise exception when bad path'(){
-        when:
-        new LoaderService('noPath').load()
+    def 'Files loader should raise exception when bad list path'(){
+        expect:
+        new LoaderService('noPath', new Console()).load() == null
+    }
 
-        then: 'a File Loading Exception is thrown'
-        thrown(FileLoadingException)
+    def 'Files loader should raise exception when bad single file path'(){
+        expect:
+        new LoaderService(fakeFilesPath, new Console()).getContent(null) == null
     }
 
     def 'Files loader should load 13 files from the test resources folder'(){

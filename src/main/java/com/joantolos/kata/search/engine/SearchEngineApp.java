@@ -1,7 +1,7 @@
 package com.joantolos.kata.search.engine;
 
-import com.joantolos.kata.search.engine.exception.FileLoadingException;
 import com.joantolos.kata.search.engine.service.ArgumentParser;
+import com.joantolos.kata.search.engine.service.LoaderService;
 import com.joantolos.kata.search.engine.service.SearchEngineService;
 import com.joantolos.kata.search.engine.ui.Console;
 
@@ -15,7 +15,8 @@ public class SearchEngineApp {
 
         try {
             String folder = new ArgumentParser(args).getFolder();
-            searchEngineService = new SearchEngineService(folder);
+            LoaderService loaderService = new LoaderService(folder, console);
+            searchEngineService = new SearchEngineService(loaderService.load());
             console.prompt(folder);
             Scanner keyboard = new Scanner(System.in);
             String toSearch;
@@ -25,7 +26,7 @@ public class SearchEngineApp {
                 console.printSearchResult(searchEngineService.search(toSearch));
             } while (!toSearch.equals(":quit"));
             console.exit();
-        } catch (IllegalArgumentException | FileLoadingException e) {
+        } catch (IllegalArgumentException e) {
             console.print(e.getMessage());
         }
     }

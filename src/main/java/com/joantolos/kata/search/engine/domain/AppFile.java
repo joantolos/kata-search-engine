@@ -17,4 +17,5 @@ public class AppFile {
     public String getContent() {
         return content;
     }
+
 }
