@@ -6,7 +6,7 @@ Tree layout
 We had to implement the new feature using the green boxes. All those components exist already so we have to add the feature without impacting the existing code. So, we needed:
 
 Add a whole new navigation path on the User Interface (in that case, a web browser application), including the possibility for a user to upload a file.
-Add the new endpoint to the application API (the Node JS microservice) which will parse the data from the other services and arrange it in a way that is super easy to consume for the UI. In other words, it creates a tailored JSON response to fit the specific needs of the UI. That way there is no logic on the browser.
+Add the new endpoint to the application API (the Node JS microservice) which will parse the data from the other services and arrange it in a way that is super easy to consume for the UI. In other terms, it creates a tailored JSON response to fit the specific needs of the UI. That way there is no logic on the browser.
 Add the logic of the feature on a Java Microservice. This was the tricky part because we had two dependencies:
 We need to retrieve data from a third party (inside the company) Java Microservice which we don’t control and know how it works.
 The input for this third party microservice is calculated from the user input on the user interface (the user uploads a file).

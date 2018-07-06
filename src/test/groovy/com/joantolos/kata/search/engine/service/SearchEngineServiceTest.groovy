@@ -20,6 +20,6 @@ class SearchEngineServiceTest extends Specification {
 
     def 'Search engine should search'(){
         expect:
-        searchEngineService.search('lili word')
+        searchEngineService.search('is that the')
     }
 }

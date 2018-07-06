@@ -425,7 +425,7 @@ Following that structure, generally:
 
 if X1 is t1,a and X2 is t2,b and X3 is t3,c i ... i Xn is tn,z then Y is tY,o
 LINGUISTIC VARIABLES:
-A variable whose values are words or sentences in a natural or artificial language. Can be represented as:
+A variable whose values are terms or sentences in a natural or artificial language. Can be represented as:
 
 <X, LX, UX, SX>
 X -> Linguistic variable name

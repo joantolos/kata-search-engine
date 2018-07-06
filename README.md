@@ -34,18 +34,18 @@ An example session might look like:
     no matches found
     search> :quit
     
-The search should take the words given on the command prompt and return a list of the top 10 (max) matching filenames in rank order, giving the rank score against each match.
+The search should take the terms given on the command prompt and return a list of the top 10 (max) matching filenames in rank order, giving the rank score against each match.
 
 Note: treat the above as an outline spec; you don’t need to exactly reproduce the above output. Don’t spend too much time on input handling, just assume sane input.
 
 ### Ranking
-* The rank score must be 100% if a file contains all the words
-* It must be 0% if it contains none of the words
-* It should be between 0 and 100 if it contains only some of the words but the exact ranking formula is up to you to choose and implement 
+* The rank score must be 100% if a file contains all the terms
+* It must be 0% if it contains none of the terms
+* It should be between 0 and 100 if it contains only some of the terms but the exact ranking formula is up to you to choose and implement 
 
 ### Things to consider in your implementation
 * What constitutes a word
-* What constitutes two words being equal (and matching)
+* What constitutes two terms being equal (and matching)
 * Data structure design: the in memory representation to search against
 * Ranking score design: start with something basic then iterate as time allows
 * Testability
