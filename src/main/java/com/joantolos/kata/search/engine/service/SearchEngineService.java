@@ -22,7 +22,7 @@ public class SearchEngineService {
 
         List<Term> terms = new ArrayList<>();
 
-        files.forEach(appFile -> {
+        for(AppFile appFile : files){
             String patternString =
                     "\\b(" +
                             StringUtils.join(Arrays.stream(toSearch.split(" "))
@@ -48,7 +48,7 @@ public class SearchEngineService {
                 System.out.println("\tThe word '" + k + "' appears " + v + " times." );
             });
             appFile.setTerms(terms);
-        });
+        }
 
         return new SearchResult(toSearch, files.size(), files);
     }
