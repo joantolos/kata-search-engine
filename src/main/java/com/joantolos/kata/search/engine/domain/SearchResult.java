@@ -22,9 +22,9 @@ public class SearchResult {
                 " files.");
 
         for(AppFile appFile : appFiles) {
-            result.append("\nThe file: '").append(appFile.getName());
+            result.append("\n\nThe file '").append(appFile.getName());
             for(Term term : appFile.getTerms()) {
-                result.append("\tContains the word '").append(term.getTerm()).append("' ").append(term.getNumberOfTimes()).append(" times.");
+                result.append("\n\tContains the word '").append(term.getTerm()).append("' ").append(term.getNumberOfTimes()).append(" times.");
             }
         }
 
