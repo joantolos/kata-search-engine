@@ -14,7 +14,7 @@ public class SearchEngineService {
 
     private List<AppFile> files;
 
-    public SearchEngineService(List<AppFile> files) throws IllegalArgumentException {
+    public SearchEngineService(List<AppFile> files) {
         this.files = files;
     }
 
