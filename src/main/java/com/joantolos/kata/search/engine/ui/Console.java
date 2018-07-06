@@ -34,17 +34,6 @@ public class Console {
     }
 
     public Boolean printSearchResult(SearchResult search) {
-        this.print(
-            "Search results for the term '" +
-            search.getTerm() +
-            "' into " +
-            search.getTotalFiles() +
-            " files.");
-
-        search.getAppFiles().forEach(appFile -> {
-            this.print("\nThe file: '" + appFile.getName());
-            appFile.getTerms().forEach(term -> this.print("\tContains the word '" + term.getTerm() + "' " + term.getNumberOfTimes() + " times."));
-        });
-        return true;
+        return this.print(search.toString());
     }
 }

@@ -14,15 +14,20 @@ public class SearchResult {
         this.appFiles = appFiles;
     }
 
-    public String getTerm() {
-        return term;
-    }
+    public String toString(){
+        StringBuilder result = new StringBuilder("Search results for the term '" +
+                this.term +
+                "' into " +
+                this.totalFiles +
+                " files.");
 
-    public Integer getTotalFiles() {
-        return totalFiles;
-    }
+        for(AppFile appFile : appFiles) {
+            result.append("\nThe file: '").append(appFile.getName());
+            for(Term term : appFile.getTerms()) {
+                result.append("\tContains the word '").append(term.getTerm()).append("' ").append(term.getNumberOfTimes()).append(" times.");
+            }
+        }
 
-    public List<AppFile> getAppFiles() {
-        return appFiles;
+        return result.toString();
     }
 }
