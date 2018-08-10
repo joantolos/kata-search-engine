@@ -19,32 +19,37 @@ public class SearchEngineService {
     }
 
     public SearchResult search(String toSearch) {
-
-        for(AppFile appFile : files){
-            String patternString =
-                    "\\b(" +
-                            StringUtils.join(Arrays.stream(toSearch.split(" "))
-                                    .map(String::new)
-                                    .collect(Collectors.toList()), "|")
-                            + ")\\b";
-
-            Pattern pattern = Pattern.compile(patternString);
-            Matcher matcher = pattern.matcher(appFile.getContent());
-            Map<String, Integer> count = new HashMap<>();
-
-            while (matcher.find()) {
-                String term = matcher.group(1);
-                if(count.get(term) != null) {
-                    count.replace(term, count.get(term) + 1);
-                } else {
-                    count.put(term, 1);
-                }
-            }
-            List<Term> terms = new ArrayList<>();
-            count.forEach((k, v) -> terms.add(new Term(k, v)));
-            appFile.setTerms(terms);
-        }
+        files.forEach(appFile -> {
+            Matcher matcher = Pattern.compile("\\b(" +
+                    StringUtils.join(Arrays.stream(toSearch.split(" "))
+                            .map(String::new)
+                            .collect(Collectors.toList()), "|")
+                    + ")\\b").matcher(appFile.getContent());
+            appFile.setTerms(this.getTerms(matcher));
+        });
 
         return new SearchResult(toSearch, files.size(), files);
+    }
+
+    private List<Term> getTerms(Matcher matcher) {
+        return this.getCounts(matcher).entrySet()
+                .stream()
+                .sorted(Comparator.comparing(e -> -e.getValue()))
+                .map(e -> new Term(e.getKey(), e.getValue()))
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Integer> getCounts(Matcher matcher) {
+        Map<String, Integer> count = new HashMap<>();
+
+        while (matcher.find()) {
+            String term = matcher.group(1);
+            if(count.get(term) != null) {
+                count.replace(term, count.get(term) + 1);
+            } else {
+                count.put(term, 1);
+            }
+        }
+        return count;
     }
 }

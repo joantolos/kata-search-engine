@@ -4,30 +4,21 @@ import java.util.List;
 
 public class SearchResult {
 
-    private String term;
-    private Integer totalFiles;
     private List<AppFile> appFiles;
+    private String head;
 
     public SearchResult(String term, Integer totalFiles, List<AppFile> appFiles) {
-        this.term = term;
-        this.totalFiles = totalFiles;
         this.appFiles = appFiles;
+        this.head = "Search results for the term '" + term + "' into " + totalFiles + " files.";
     }
 
     public String toString(){
-        StringBuilder result = new StringBuilder("Search results for the term '" +
-                this.term +
-                "' into " +
-                this.totalFiles +
-                " files.");
-
-        for(AppFile appFile : appFiles) {
-            result.append("\n\nThe file '").append(appFile.getName());
-            for(Term term : appFile.getTerms()) {
-                result.append("\n\tContains the word '").append(term.getTerm()).append("' ").append(term.getNumberOfTimes()).append(" times.");
-            }
-        }
-
-        return result.toString();
+        return this.head + appFiles.stream()
+                .map(appFile -> "\n\nThe file '" +
+                        appFile.getName() +
+                        appFile.getTerms().stream()
+                                .map(Term::toString)
+                                .reduce("", String::concat))
+                .reduce("", String::concat);
     }
 }

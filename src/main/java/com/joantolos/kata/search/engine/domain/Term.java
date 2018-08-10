@@ -10,11 +10,7 @@ public class Term {
         this.numberOfTimes = numberOfTimes;
     }
 
-    public String getTerm() {
-        return term;
-    }
-
-    public Integer getNumberOfTimes() {
-        return numberOfTimes;
+    public String toString() {
+        return "\n\tContains the word '" + this.term + "' " + this.numberOfTimes + " times.";
     }
 }
