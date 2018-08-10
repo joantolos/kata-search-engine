@@ -34,7 +34,6 @@ public class SearchEngineService {
     private List<Term> getTerms(Matcher matcher) {
         return this.getCounts(matcher).entrySet()
                 .stream()
-                .sorted(Comparator.comparing(e -> -e.getValue()))
                 .map(e -> new Term(e.getKey(), e.getValue()))
                 .collect(Collectors.toList());
     }
